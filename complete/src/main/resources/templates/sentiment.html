@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Setinment Analysis</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap-theme.min.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-bg">
+        <div class="container-fluid">
+            <div class="content">
+                <div class="navbar-header">
+                    <a href="/"><img src="images/logo.png" height="35" id="navbar-img" alt="logo" title="logo" class="logo-container logo-sgv" /></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="content-results">
+        <h4>Azure Language Sentiment Analysis</h4>
+        <form action="#" th:action="@{/sentiment}" th:object="${analysisModel}" method="post">
+            <p>Text to Analyze:</p>
+            <textarea maxlength="2000" id="w3review" name="w3review" th:field="*{content}" rows="15" cols="100"></textarea>
+            <p><input type="submit" value="Analyze" /></p>
+        </form>
+        <p>
+            
+            
+            <div th:each="result: ${analysisModel.results}">
+                <div th:if="${result.rowId} == 0">
+                    <h4>Sentiment Analysis Results</h4>
+                    <div th:text="${'Overall Document Sentiment: ' + result.sentiment}"></div>
+                    <ul>
+                        <li th:text="${'Positive Score: ' + result.positiveScore}"></li>
+                        <li th:text="${'Neutral Score: ' + result.neutralScore}"></li>
+                        <li th:text="${'Negative Score: ' + result.negativeScore}"></li>
+                    </ul>
+                </div>
+                <div th:unless="${result.rowId} == 0">
+                    <div th:text="${'Sentence ' + result.rowId + ' Sentiment: ' + result.sentiment}"></div>
+                    <ul>
+                        <li th:text="${'Positive Score: ' + result.positiveScore}"></li>
+                        <li th:text="${'Neutral Score: ' + result.neutralScore}"></li>
+                        <li th:text="${'Negative Score: ' + result.negativeScore}"></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
+        </div>
+        <div>
+            <footer class="main-footer navbar-bg">
+                <div class="content">
+                    <span class="copyright navbar-text-color">&copy; 2022 - Microsoft</span>
+                </div>
+            </footer>
+        </div>
+    </body>
+</body>
+</html>
