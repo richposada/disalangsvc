@@ -3,34 +3,29 @@
 
 package com.example.servingwebcontent;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.annotation.Configuration;
 import com.azure.ai.textanalytics.models.DocumentSentiment;
 import com.azure.ai.textanalytics.models.SentimentConfidenceScores;
 import com.azure.core.credential.AzureKeyCredential;
 
-
-
-
 import com.azure.ai.textanalytics.*;
 
-/**
- * Sample demonstrates how to analyze the sentiment of document.
- */
-@Configuration
+
+
 public class AnalyzeSentiment {
+
+
     Integer i = 1;
     
-    public List<SentimentModel> GetSentiment(String textToAnalyze) {
+    public List<SentimentModel> GetSentiment(String textToAnalyze, String langKey, String langEndpoint) {
         
 
         // Instantiate a client that will be used to call the service.
         TextAnalyticsClient client = new TextAnalyticsClientBuilder()
-                                        .credential(new AzureKeyCredential("a68f27cd48eb4e2d9ff095f84f646828"))
-                                        .endpoint("https://langdemo.cognitiveservices.azure.us/")
+                                        .credential(new AzureKeyCredential(langKey))
+                                        .endpoint(langEndpoint)
                                         .buildClient();
 
         final DocumentSentiment documentSentiment = client.analyzeSentiment(textToAnalyze);
